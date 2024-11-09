@@ -14,3 +14,7 @@ Tlačidlo
 Fotodióda
 Osvetlenie
 
+Peter Čambor - Osvetlenie
+Radovan Jakubčík - Humidity
+Andrii Stoliar - Pump
+Adrián Jakubčík - LCD
