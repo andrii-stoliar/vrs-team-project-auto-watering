@@ -16,5 +16,5 @@ Zariadenia, ktoré sa majú používať:
 
 Andrii Stoliar - Pump</br>
 Peter Čambor - Osvetlenie</br>
-Radovan Jakubčík - Humidity</br>
+Radovan Jakubčík - Humidity, Timer</br>
 Adrián Jakubčík - LCD</br>
