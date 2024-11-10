@@ -14,7 +14,7 @@ Zariadenia, ktoré sa majú používať:
 + Fotodióda
 + Osvetlenie
 
-Andrii Stoliar - Pump</br>
+Andrii Stoliar - Pump, Humidity</br>
 Peter Čambor - Osvetlenie</br>
-Radovan Jakubčík - Humidity, Timer</br>
+Radovan Jakubčík - Timer</br>
 Adrián Jakubčík - LCD</br>
