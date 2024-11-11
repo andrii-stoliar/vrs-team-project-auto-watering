@@ -18,3 +18,4 @@ Andrii Stoliar - Pump, Humidity</br>
 Peter Čambor - Osvetlenie</br>
 Radovan Jakubčík - Timer, Reset button, Low Power Mode</br>
 Adrián Jakubčík - LCD</br>
+![Default program chartflow](https://github.com/andrii-stoliar/vrs-team-project-auto-watering/blob/main/imgs/semestral_flowchart.drawio.png)
