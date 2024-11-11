@@ -16,5 +16,5 @@ Zariadenia, ktoré sa majú používať:
 
 Andrii Stoliar - Pump, Humidity</br>
 Peter Čambor - Osvetlenie</br>
-Radovan Jakubčík - Timer, Reset button</br>
+Radovan Jakubčík - Timer, Reset button, Low Power Mode</br>
 Adrián Jakubčík - LCD</br>
