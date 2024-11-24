@@ -13,8 +13,9 @@ Zariadenia, ktoré sa majú používať:
 + Tlačidlo
 + Fotodióda
 + Osvetlenie
++ HW-038
 
-Andrii Stoliar - Pump, Humidity</br>
+Andrii Stoliar - Pump, Humidity, HW-038</br>
 Peter Čambor - Osvetlenie</br>
 Radovan Jakubčík - Timer, Reset button, Low Power Mode</br>
 Adrián Jakubčík - LCD</br>
