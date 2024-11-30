@@ -1,0 +1,5 @@
+LCD I2C 1602A:
+https://docs.arduino.cc/learn/electronics/lcd-displays/
+
+TFT LCD 182x182
+https://github.com/arduino-libraries/TFT/blob/master/src/utility/Adafruit_GFX.cpp
