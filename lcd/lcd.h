@@ -127,8 +127,12 @@ void lcdLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t colour);
 void lcdRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t colour);
 void lcdFilledRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t colour);
 void lcdCircle(int16_t xCentre, int16_t yCentre, int16_t radius, uint16_t colour);
+void lcdDrawHeart(int16_t x, int16_t y, uint16_t size, uint16_t color);
 
 void lcdPutCh(unsigned char character, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour);
-void lcdPutS(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour);
+void lcdPutS(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour, size_t delay);
+void lcdPutSWithCursor(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour, size_t delay);
+void lcdPutSWithMagicalWriter(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour, size_t delay);
+uint8_t checkBoundries(uint8_t *x, uint8_t *y, uint8_t origin);
 
 #endif /* LCD_H_ */

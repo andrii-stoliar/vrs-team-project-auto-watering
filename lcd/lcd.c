@@ -6,6 +6,7 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 
 #include "lcd.h"
 //#include "font5x8.h"
@@ -330,6 +331,35 @@ void lcdCircle(int16_t xCentre, int16_t yCentre, int16_t radius, uint16_t colour
 	}
 }
 
+void lcdDrawHeart(int16_t xCentre, int16_t yCentre, uint16_t size, uint16_t colour) {
+	int i, j;
+	int y = yCentre; // Start from the given yCentre
+	int width = size; // Adjust width for a narrower shape
+
+	// Upper part of the heart
+	for (i = 1; i <= size / 3; i++) {
+		for (j = 1; j <= 2 * width; j++) {
+			if ((j >= width / 2 - i && j <= width / 2 + i) || (j >= width + width / 2 - i && j <= width + width / 2 + i)) {
+				// Convert j to x-coordinate relative to xCentre
+				lcdPlot(xCentre + (j - width), y, colour); // Shift x to center horizontally
+			}
+		}
+		y++; // Move to the next row
+	}
+
+	// Lower part of the heart
+	for (i = 1; i <= size; i++) {
+		for (j = 1; j <= 2 * width; j++) {
+			if (j >= i && j <= 2 * width - i) {
+				// Convert j to x-coordinate relative to xCentre
+				lcdPlot(xCentre + (j - width), y, colour); // Shift x to center horizontally
+			}
+		}
+		y++; // Move to the next row
+	}
+}
+
+
 // LCD text manipulation functions --------------------------------------------------------------------------
 #define pgm_read_byte_near(address_short) (uint16_t)(address_short)
 // Plot a character at the specified x, y co-ordinates (top left hand corner of character)
@@ -385,26 +415,100 @@ uint8_t lcdTextX(uint8_t x) { return x*6; }
 uint8_t lcdTextY(uint8_t y) { return y*8; }
 
 // Plot a string of characters to the LCD
-void lcdPutS(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour)
+void lcdPutS(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour, size_t delay)
 {
 	uint8_t origin = x;
 	uint8_t characterNumber;
 
 	for (characterNumber = 0; characterNumber < strlen(string); characterNumber++)
 	{
-		// Check if we are out of bounds and move to
-		// the next line if we are
-		if (x > 121)
-		{
-			x = origin;
-			y += 8;
-		}
+		if (!checkBoundries(&x, &y, origin)) break;
 
-		// If we move past the bottom of the screen just exit
-		if (y > 120) break;
-
-		// Plot the current character
 		lcdPutCh(string[characterNumber], x, y, fgColour, bgColour);
+		LL_mDelay(delay > 0 ? delay : 1);
 		x += 6;
 	}
 }
+
+void lcdPutSWithCursor(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour, size_t delay) {
+    uint8_t origin = x;
+    uint8_t characterNumber;
+
+    for (characterNumber = 0; characterNumber < strlen(string); characterNumber++) {
+        if (!checkBoundries(&x, &y, origin)) break;
+
+        lcdPutCh(string[characterNumber], x, y, fgColour, bgColour);
+        LL_mDelay(delay > 0 ? delay : 1);
+
+        lcdPutCh('_', x + 6, y, fgColour, bgColour);
+        LL_mDelay(delay > 0 ? delay : 1);
+
+        lcdPutCh(' ', x + 6, y, bgColour, bgColour);
+
+        x += 6;
+    }
+
+    for (int i = 5; i > 0; i--) {
+        lcdPutCh('_', x, y, fgColour, bgColour);
+        LL_mDelay(delay > 0 ? delay : 1);
+        lcdPutCh(' ', x, y, bgColour, bgColour);
+        LL_mDelay(delay > 0 ? delay : 1);
+    }
+}
+
+void lcdPutSWithMagicalWriter(const char *string, uint8_t x, uint8_t y, uint16_t fgColour, uint16_t bgColour, size_t delay) {
+    uint8_t origin = x;
+    uint8_t characterNumber;
+    const char char_pool[] = {
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+        'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+        'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'
+    };
+    size_t pool_size = sizeof(char_pool) / sizeof(char_pool[0]);
+
+    for (characterNumber = 0; characterNumber < strlen(string); characterNumber++) {
+
+    	if(!checkBoundries(&x, &y, origin)) break;
+
+        char c = string[characterNumber];
+
+        if(c == ' ') {
+			lcdPutCh(c, x, y, fgColour, bgColour);
+			LL_mDelay(delay > 0 ? delay : 1);
+        } else {
+			for (int i = 0; i < 20; i++) {
+				char random_char = char_pool[rand() % pool_size];
+				lcdPutCh(random_char, x, y, fgColour, bgColour);
+				LL_mDelay(5);
+			}
+
+			lcdPutCh(c, x, y, fgColour, bgColour);
+			LL_mDelay(delay > 0 ? delay : 1);
+        }
+
+        x += 6;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        lcdPutCh('_', x, y, fgColour, bgColour);
+        LL_mDelay(delay > 0 ? delay : 1);
+        lcdPutCh(' ', x, y, bgColour, bgColour);
+        LL_mDelay(delay > 0 ? delay : 1);
+    }
+}
+
+uint8_t checkBoundries(uint8_t *x, uint8_t *y, uint8_t origin) {
+	if (*x > 121) {
+		*x = origin;
+		*y += 8;
+	}
+
+	if (*y > 120) return 0;
+
+	return 1;
+}
+

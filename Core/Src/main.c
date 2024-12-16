@@ -93,19 +93,27 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   lcdInitialise(LCD_ORIENTATION3);
-  lcdPutS("VRS 2019", lcdTextX(2), lcdTextY(1), decodeRgbValue(122, 122, 122), decodeRgbValue(55, 01, 51));
-  lcdPutS("Cvicenie 8", lcdTextX(2), lcdTextY(4), decodeRgbValue(255, 255, 255), decodeRgbValue(0, 0, 0));
+  char *buf = "I love you guys! And this should be a very long text...";
+  uint16_t Xoffset = lcdTextX(strlen(buf) + 1) + 2;
+  uint16_t Yoffset = lcdTextY(2);
+  lcdPutSWithCursor(buf, lcdTextX(1), lcdTextY(3), decodeRgbValue(255, 255, 255), decodeRgbValue(0, 0, 0), 80);
+  uint16_t red = decodeRgbValue(255, 0, 0); // Red in RGB565 format
+  uint16_t green = decodeRgbValue(0, 255, 0); // Red in RGB565 format
+  uint8_t hSize = 9;
+//  lcdDrawHeart(Xoffset + hSize, Yoffset - (hSize/2), hSize, red);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   uint8_t state = 0;
   while (1)
   {
     /* USER CODE END WHILE */
-	  state ? lcdFilledRectangle(10, 75, 34, 99, decodeRgbValue(31, 0, 0)) : lcdFilledRectangle(10, 75, 34, 99, decodeRgbValue(0, 31, 0));
-	  state ^= 1;
-	  LL_mDelay(100);
+
+//	  state ? lcdDrawHeart(Xoffset + hSize, Yoffset - (hSize/2), hSize, red) : lcdDrawHeart(Xoffset + hSize, Yoffset - (hSize/2), hSize, green);
+//	  state ^= 1;
+	  LL_mDelay(2000);
 
     /* USER CODE BEGIN 3 */
   }
