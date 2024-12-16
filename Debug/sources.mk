@@ -26,6 +26,7 @@ Core/Src \
 Core/Startup \
 Drivers/STM32F3xx_HAL_Driver/Src \
 hw038 \
+lcd \
 pump \
 soil_moisture_sensor \
 

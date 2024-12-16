@@ -26,10 +26,19 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_i2c_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_pwr.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_pwr_ex.h \
- ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/gpio.h \
- C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/soil_moisture_sensor/soil_moisture_sensor.h \
- C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/hw038/hw-038.h \
- C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/pump/pump.h
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_spi.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_bus.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_cortex.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_rcc.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_system.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_utils.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_pwr.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_gpio.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_dma.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_exti.h \
+ ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/spi.h \
+ ../Core/Inc/gpio.h \
+ /home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/lcd/lcd.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
@@ -58,9 +67,18 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_i2c_ex.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_pwr.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_pwr_ex.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_spi.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_bus.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_cortex.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_rcc.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_system.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_utils.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_pwr.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_gpio.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_dma.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_ll_exti.h:
 ../Core/Inc/adc.h:
 ../Core/Inc/main.h:
+../Core/Inc/spi.h:
 ../Core/Inc/gpio.h:
-C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/soil_moisture_sensor/soil_moisture_sensor.h:
-C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/hw038/hw-038.h:
-C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/pump/pump.h:
+/home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/lcd/lcd.h:

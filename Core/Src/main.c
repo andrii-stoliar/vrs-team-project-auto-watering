@@ -19,13 +19,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "spi.h"
 #include "gpio.h"
-#include "soil_moisture_sensor.h"
-#include "hw-038.h"
-#include "pump.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,7 +43,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-// Define minimum and maximum ADC values for calibration
 
 /* USER CODE BEGIN PV */
 float soil_moisture;
@@ -59,32 +57,59 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t rx_data = 0;
 /* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
   * @retval int
   */
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
+int main(void)
+{
 
-    // Initialize peripherals
-    MX_GPIO_Init();
-    MX_ADC1_Init();
+  /* USER CODE BEGIN 1 */
 
-    // Initialize sensors
-    SoilMoistureSensor_Init(GPIOA, GPIO_PIN_0, &hadc1, ADC_CHANNEL_2);
-    Hw_Init(GPIOA, GPIO_PIN_0, &hadc1, ADC_CHANNEL_4);
+  /* USER CODE END 1 */
 
-    while (1) {
-        // Get calibrated results
-        soil_moisture = SoilMoistureSensor_GetCalibratedResult();
-        water_height = Hw_GetCalibratedResult();
-        //Pump_Toggle(1000);
+  /* MCU Configuration--------------------------------------------------------*/
 
-        HAL_Delay(1000);
-    }
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_SPI1_Init();
+  /* USER CODE BEGIN 2 */
+  lcdInitialise(LCD_ORIENTATION3);
+  lcdPutS("VRS 2019", lcdTextX(2), lcdTextY(1), decodeRgbValue(122, 122, 122), decodeRgbValue(55, 01, 51));
+  lcdPutS("Cvicenie 8", lcdTextX(2), lcdTextY(4), decodeRgbValue(255, 255, 255), decodeRgbValue(0, 0, 0));
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  uint8_t state = 0;
+  while (1)
+  {
+    /* USER CODE END WHILE */
+	  state ? lcdFilledRectangle(10, 75, 34, 99, decodeRgbValue(31, 0, 0)) : lcdFilledRectangle(10, 75, 34, 99, decodeRgbValue(0, 31, 0));
+	  state ^= 1;
+	  LL_mDelay(100);
+
+    /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
 }
 
 /**

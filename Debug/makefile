@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include soil_moisture_sensor/subdir.mk
 -include pump/subdir.mk
+-include lcd/subdir.mk
 -include hw038/subdir.mk
 -include Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
@@ -63,8 +64,8 @@ all: main-build
 main-build: ground-humidity-sensor.elf secondary-outputs
 
 # Tool invocations
-ground-humidity-sensor.elf ground-humidity-sensor.map: $(OBJS) $(USER_OBJS) C:\MyFiles\Study\7th_sem\VRS\Workspace\ground-humidity-sensor\STM32F303K8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ground-humidity-sensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\MyFiles\Study\7th_sem\VRS\Workspace\ground-humidity-sensor\STM32F303K8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ground-humidity-sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+ground-humidity-sensor.elf ground-humidity-sensor.map: $(OBJS) $(USER_OBJS) /home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/STM32F303K8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "ground-humidity-sensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/STM32F303K8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ground-humidity-sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

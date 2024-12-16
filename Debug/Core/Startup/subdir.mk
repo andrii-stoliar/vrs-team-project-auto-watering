@@ -16,7 +16,7 @@ S_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Core/Startup/%.o: ../Core/Startup/%.s Core/Startup/subdir.mk
-	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/hw038" -I"C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/soil_moisture_sensor" -I"C:/MyFiles/Study/7th_sem/VRS/Workspace/ground-humidity-sensor/pump" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"/home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/hw038" -I"/home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/soil_moisture_sensor" -I"/home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/pump" -I"/home/godmaze/STM32CubeIDE/workspace_1.16.1/projekt/vrs-team-project-auto-watering/lcd" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
 
 clean: clean-Core-2f-Startup
 
