@@ -1,0 +1,12 @@
+# Eclipse
+.metadata
+.settings
+[Rr]elease
+[Dd]ebug
+Debug/
+.launch
+# STM32CubeIDE
+.metadata/
+.settings/
+*.ld
+[Bb]uild

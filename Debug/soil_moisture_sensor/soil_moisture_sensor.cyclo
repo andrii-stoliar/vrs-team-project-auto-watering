@@ -1,3 +1,0 @@
-../soil_moisture_sensor/soil_moisture_sensor.c:20:6:SoilMoistureSensor_Init	1
-../soil_moisture_sensor/soil_moisture_sensor.c:29:10:SoilMoistureSensor_Read	1
-../soil_moisture_sensor/soil_moisture_sensor.c:48:7:SoilMoistureSensor_GetCalibratedResult	3

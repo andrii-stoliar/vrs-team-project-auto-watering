@@ -1,4 +1,0 @@
-../pump/pump.c:11:6:Pump_Init	1
-../pump/pump.c:16:6:Pump_On	1
-../pump/pump.c:21:6:Pump_Off	1
-../pump/pump.c:26:6:Pump_Toggle	1

@@ -1,3 +1,0 @@
-../hw038/hw-038.c:20:6:Hw_Init	24	static
-../hw038/hw-038.c:29:10:Hw_Read	40	static
-../hw038/hw-038.c:48:7:Hw_GetCalibratedResult	16	static
