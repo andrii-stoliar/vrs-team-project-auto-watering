@@ -48,7 +48,14 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+typedef uint32_t uint;
+typedef uint8_t ubyte;
 
+typedef enum EDGE_TYPE {
+    NONE = 0,
+    RISE = 1,
+    FALL = 2
+} EDGE_TYPE;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -69,6 +76,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define ErrorReset_Pin GPIO_PIN_9
+#define ErrorReset_GPIO_Port GPIOA
+#define ErrorReset_EXTI_IRQn EXTI9_5_IRQn
 
 /* USER CODE BEGIN Private defines */
 #ifndef NVIC_PRIORITYGROUP_0

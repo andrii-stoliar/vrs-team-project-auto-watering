@@ -27,22 +27,26 @@ void SoilMoistureSensor_Init(GPIO_TypeDef *VCC_Port, uint16_t VCC_Pin, ADC_Handl
 }
 
 uint16_t SoilMoistureSensor_Read(void) {
-    HAL_GPIO_WritePin(Sensor_VCC_Port, Sensor_VCC_Pin, GPIO_PIN_SET);
-    HAL_Delay(10);
+	// Power on the soil moisture sensor
+	HAL_GPIO_WritePin(Sensor_VCC_Port, Sensor_VCC_Pin, GPIO_PIN_SET);
+	HAL_Delay(10);  // Wait for stabilization
 
-    ADC_ChannelConfTypeDef sConfig = {0};
-    sConfig.Channel = Sensor_ADC_Channel;
-    sConfig.Rank = ADC_REGULAR_RANK_1;
-    HAL_ADC_ConfigChannel(Sensor_hadc, &sConfig);
+	// Configure ADC for soil moisture sensor channel
+	ADC_ChannelConfTypeDef sConfig = {0};
+	sConfig.Channel = Sensor_ADC_Channel;  // ADC_CHANNEL_2 for soil moisture
+	sConfig.Rank = ADC_REGULAR_RANK_1;
+	HAL_ADC_ConfigChannel(Sensor_hadc, &sConfig);
 
-    HAL_ADC_Start(Sensor_hadc);
-    HAL_ADC_PollForConversion(Sensor_hadc, HAL_MAX_DELAY);
+	// Start ADC conversion
+	HAL_ADC_Start(Sensor_hadc);
+	HAL_ADC_PollForConversion(Sensor_hadc, HAL_MAX_DELAY);
+	uint16_t adc_value = HAL_ADC_GetValue(Sensor_hadc);
+	HAL_ADC_Stop(Sensor_hadc);
 
-    uint16_t adc_value = HAL_ADC_GetValue(Sensor_hadc);
-    HAL_ADC_Stop(Sensor_hadc);
+	// Power off the soil moisture sensor
+	HAL_GPIO_WritePin(Sensor_VCC_Port, Sensor_VCC_Pin, GPIO_PIN_RESET);
 
-    HAL_GPIO_WritePin(Sensor_VCC_Port, Sensor_VCC_Pin, GPIO_PIN_RESET);
-    return adc_value;
+	return adc_value;
 }
 
 float SoilMoistureSensor_GetCalibratedResult(void) {
