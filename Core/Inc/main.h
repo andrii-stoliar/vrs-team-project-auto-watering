@@ -76,6 +76,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define PhotoSensor_Pin GPIO_PIN_8
+#define PhotoSensor_GPIO_Port GPIOA
 #define ErrorReset_Pin GPIO_PIN_9
 #define ErrorReset_GPIO_Port GPIOA
 #define ErrorReset_EXTI_IRQn EXTI9_5_IRQn

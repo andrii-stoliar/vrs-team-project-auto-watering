@@ -20,6 +20,6 @@ void ledOn();
 void ledToggle();
 void ledOff();
 
-GPIO_PinState isLight();
+GPIO_PinState ledIsLight();
 
 #endif /* LED_H_ */

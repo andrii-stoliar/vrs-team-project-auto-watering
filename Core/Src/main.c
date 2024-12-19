@@ -64,6 +64,7 @@ const uint8_t ERROR_Y = 15;
 static uint8_t lastState = 0;
 static uint8_t stableSamples = UINT32_MAX;
 static uint8_t errorState = 0;
+static uint8_t watering = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -144,8 +145,7 @@ int main(void)
 
   Pump_Init();
 
-  ledInit(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_11);
-  ledOn();
+  ledInit(PhotoSensor_GPIO_Port, PhotoSensor_Pin, GPIOA, GPIO_PIN_11);
 
   if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET) {
 	  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB); // clear the flag
@@ -167,6 +167,14 @@ int main(void)
 	  soil_moisture = SoilMoistureSensor_GetCalibratedResult();
 	  water_height = Hw_GetCalibratedResult();
 
+	  if(water_height < 20) {
+		  errorState = 1;
+		  if(watering) {
+			  Pump_Off();
+			  watering = 0;
+		  }
+	  }
+
 
 	  lcdPutSWithCursor(soil, lcdTextX(1), lcdTextY(MOIST_Y), BLACK, BLACK, 0);
 	  lcdPutSWithCursor(water, lcdTextX(1), lcdTextY(LEVEL_Y), BLACK, BLACK, 0);
@@ -182,14 +190,38 @@ int main(void)
 	  lcdPutSWithCursor(soil, lcdTextX(1), lcdTextY(MOIST_Y), BLUE, BLACK, 0);
 	  lcdPutSWithCursor(water, lcdTextX(1), lcdTextY(LEVEL_Y), BLUE, BLACK, 0);
 
-	  if (errorState){
+	  if (errorState) {
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, SET);
 		  lcdPutSWithCursor("Error: No water!", lcdTextX(1), lcdTextY(ERROR_Y), RED, BLACK, 0);
-		  break;
+		  Pump_Off();
+		  watering = 0;
 	  }
 	  else {
+		  if(watering){
+			  if(soil_moisture > 60) {
+				  watering = 0;
+				  Pump_Off();
+			  }
+		  }
+		  else if(soil_moisture < 50){
+			  lcdPutSWithCursor("Status: Watering!", lcdTextX(1), lcdTextY(ERROR_Y - 1), BLUE, BLACK, 0);
+			  watering = 1;
+			  Pump_On();
+		  }
+		  else {
+			  lcdPutSWithCursor("Status: Watering!", lcdTextX(1), lcdTextY(ERROR_Y - 1), BLACK, BLACK, 0);
+			  break;
+		  }
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, RESET);
 		  lcdPutSWithCursor("Status: Running!", lcdTextX(1), lcdTextY(ERROR_Y), GREEN, BLACK, 0);
+	  }
+
+	  // FIXME: Better to read the analog value and compare, rather than a 0, or a 1 as it may lead to an unexpected behavior.
+	  if(ledIsLight() == 1) {
+		  ledOff();
+	  }
+	  else {
+		  ledOn();
 	  }
 
 //	  ledToggle();
@@ -252,10 +284,10 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-//  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
