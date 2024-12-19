@@ -145,6 +145,7 @@ int main(void)
   Pump_Init();
 
   ledInit(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_11);
+  ledOn();
 
   if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET) {
 	  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB); // clear the flag
@@ -191,7 +192,9 @@ int main(void)
 		  lcdPutSWithCursor("Status: Running!", lcdTextX(1), lcdTextY(ERROR_Y), GREEN, BLACK, 0);
 	  }
 
-	  LL_mDelay(100);
+//	  ledToggle();
+
+	  LL_mDelay(2000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
